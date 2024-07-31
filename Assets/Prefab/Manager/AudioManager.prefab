@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6787841293880838823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6787841293880838822}
+  - component: {fileID: 6787841293880838821}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6787841293880838822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787841293880838823}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6787841293880838821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787841293880838823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd088a7fbd5bf7c488adef3d42574f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMClip: {fileID: 8300000, guid: 1ee7412826316c74f942ae7f741f2416, type: 3}
+  HitClip: {fileID: 8300000, guid: 49179b6e1a8460f46ab25800855610c9, type: 3}
+  AttackClip: {fileID: 8300000, guid: bba7cc5c9c9bc044e89bd2536d47409d, type: 3}
+  DashClip: {fileID: 8300000, guid: c09f4eaca59148847bd8fc300f842da0, type: 3}
+  ShieldClip: {fileID: 8300000, guid: a951b368a74812842b0c9bb6f8298300, type: 3}
+  StatueClip: {fileID: 8300000, guid: 102aa7293c80b9647bd46653b3b22851, type: 3}
+  DarkClip: {fileID: 8300000, guid: 4a727c76e49eb1f42b24027ef0d4ec1a, type: 3}
+  SpellClip: {fileID: 8300000, guid: ab38e6dfeabcfa7418da8585ec8776ab, type: 3}
+  ShockWaveClip: {fileID: 8300000, guid: c6e09c383fe327c488b3538cd4230fbf, type: 3}
+  MainClip: {fileID: 8300000, guid: 32af824b644a03f4db43886dd3a6550b, type: 3}
+  BattleList:
+  - {fileID: 8300000, guid: 2da1a1b28026d9a40aa247830818d468, type: 3}
+  - {fileID: 8300000, guid: dac29a70caa542048904b617db2b2416, type: 3}
+  - {fileID: 8300000, guid: 1ee7412826316c74f942ae7f741f2416, type: 3}
+  BossList:
+  - {fileID: 8300000, guid: fb2f0b935528ab74eaeecd5913cedaa7, type: 3}
+  BGMSource: {fileID: 0}

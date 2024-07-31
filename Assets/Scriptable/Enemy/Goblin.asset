@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773407e064e41484a8e108bacbf7c6b1, type: 3}
+  m_Name: Goblin
+  m_EditorClassIdentifier: 
+  maxHP: 20
+  DefaultIsFacingRight: 1
+  IsSuperArmor: 0
+  IdleTime: 0
+  runSpeed: 3
+  ChaseDistance: 1.5
+  Attack1Damage: 20
+  Attack1RefillTime: 2
+  Attack3Damage: 10
+  Attack3RefillTime: 20
+  Attack3BulletSpeed: 10
+  Attack3Rate: 10
+  RangedDistance: 10
+  HurtResetTime: 0.5
+  StunResetTime: 3
+  RedSoulDropRate: 50
+  RedSoulMaxDrop: 5
+  RedSoulMinDrop: 3
+  GreenSoulDropRate: 30
+  GreenSoulMaxDrop: 2
+  GreenSoulMinDrop: 1

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773407e064e41484a8e108bacbf7c6b1, type: 3}
+  m_Name: GhostWarrio2
+  m_EditorClassIdentifier: 
+  maxHP: 100
+  DefaultIsFacingRight: 1
+  IsSuperArmor: 0
+  IdleTime: 0.1
+  runSpeed: 3
+  ChaseDistance: 2
+  Attack1Damage: 50
+  Attack1RefillTime: 1
+  Attack2Damage: 0
+  Attack2RefillTime: 0
+  Attack2Distance: 0
+  Attack3Damage: 0
+  Attack3RefillTime: 0
+  Attack3BulletSpeed: 0
+  Attack3Rate: 0.05
+  RangedDistance: 10
+  HurtResetTime: 0.3
+  StunResetTime: 3
+  RedSoulDropRate: 50
+  RedSoulMaxDrop: 4
+  RedSoulMinDrop: 1
+  GreenSoulDropRate: 10
+  GreenSoulMaxDrop: 3
+  GreenSoulMinDrop: 0

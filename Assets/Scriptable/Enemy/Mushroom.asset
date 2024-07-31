@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773407e064e41484a8e108bacbf7c6b1, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: 
+  maxHP: 50
+  DefaultIsFacingRight: 1
+  IsSuperArmor: 0
+  IdleTime: 0
+  runSpeed: 2
+  ChaseDistance: 1.5
+  Attack1Damage: 20
+  Attack1RefillTime: 3
+  Attack3Damage: 10
+  Attack3RefillTime: 5
+  Attack3BulletSpeed: 5
+  Attack3Rate: 10
+  RangedDistance: 10
+  HurtResetTime: 0.5
+  StunResetTime: 3
+  RedSoulDropRate: 80
+  RedSoulMaxDrop: 8
+  RedSoulMinDrop: 5
+  GreenSoulDropRate: 20
+  GreenSoulMaxDrop: 3
+  GreenSoulMinDrop: 1

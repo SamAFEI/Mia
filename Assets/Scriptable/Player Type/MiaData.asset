@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e083dcddd513b004eaf9084ffb2cacd7, type: 3}
+  m_Name: MiaData
+  m_EditorClassIdentifier: 
+  gravityStrength: -31.25
+  gravityScale: 3.185525
+  fallGravityMult: 2
+  maxFallSpeed: 20
+  fastFallGravityMult: 2
+  maxFastFallSpeed: 20
+  runMaxSpeed: 7
+  runAcceleration: 5
+  runAccelAmount: 35.714287
+  runDecceleration: 1
+  runDeccelAmount: 7.142857
+  accelInAir: 1
+  deccelInAir: 1
+  doConserveMomentum: 1
+  jumpHeight: 2.5
+  jumpTimeToApex: 0.4
+  jumpForce: 12.5
+  jumpCutGravityMult: 1
+  jumpHangGravityMult: 1
+  jumpHangTimeThreshold: 1
+  jumpHangAccelerationMult: 0
+  jumpHangMaxSpeedMult: 0
+  wallJumpForce: {x: 3, y: 10}
+  wallJumpRunLerp: 0.1
+  wallJumpTime: 0.3
+  doTurnOnWallJump: 1
+  slideSpeed: 5
+  slideAccel: -1
+  coyoteTime: 0.2
+  jumpInputBufferTime: 0.2
+  dashAmount: 1
+  dashSpeed: 50
+  dashSleepTime: 0.01
+  dashAttackTime: 0.15
+  dashEndTime: 0.15
+  dashEndSpeed: {x: 15, y: 15}
+  dashEndRunLerp: 0.5
+  dashRefillTime: 0.001
+  dashInputBufferTime: 0.2
+  dashResetTime: 0.5
+  dodgeSpeed: 30
+  dodgeStartTime: 0.15
+  dodgeEndTime: 0.15
+  dodgeEndSpeed: {x: 0, y: 0}
+  dodgeResetTime: 0.3
+  parryResetTime: 0.3
+  attackDamage: 10
+  maxAttackComboHit: 3
+  attackRate: 1
+  attackInputBufferTime: 0.2
+  heavyAttackDamage: 50
+  circleAttackDamage: 10
+  rollInputBufferTime: 0.2
+  maxHP: 1000
+  SuperArmorTime: 1
+  HurtResetTime: 0.2
+  StunResetTime: 1
