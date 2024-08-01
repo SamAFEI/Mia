@@ -30,7 +30,7 @@ public class TimerManager : MonoBehaviour
     }
     public void SlowFrozenTime(float _time)
     {
-        if (isFrozening) { return; }
+        StopAllCoroutines();
         frozenTime = _time;
         frozdenDeltaTime = _time;
         isFrozening = true;

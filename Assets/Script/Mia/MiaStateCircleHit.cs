@@ -14,9 +14,9 @@ public class MiaStateCircleHit : MiaStatesAttackBase
         Player.WeaponTrails.SetActive(false);
         AudioManager.Instance.StartCoroutine(AudioManager.Instance.PlayAttack(true));
         Player.PlayCircleHitFX();
-        stateTime = 5f;
-        Player.AttackDamage = damage * 2;
-        Player.SetSuperArmor(true);
+        stateTime = 3f;
+        Player.AttackDamage = damage * 2f;
+        //Player.SetSuperArmor(true);
     }
 
     public override void OnExit()

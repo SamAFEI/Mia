@@ -1,5 +1,4 @@
-﻿using Assets.Script.Bullet;
-using Assets.Script.Collectibles;
+﻿using Assets.Script.Collectibles;
 using Assets.Script.Enemy;
 using Assets.Script.Manager;
 using Assets.Script.Mia;
@@ -8,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MiaController : MonoBehaviour
 {
@@ -97,6 +95,8 @@ public class MiaController : MonoBehaviour
     public bool IsPressedAttack { get { return LastPressedAttackTime > 0; } }
     public bool IsPressedHeavyAttack { get { return LastPressedHeavyAttackTime > 0; } }
     public bool IsPressedParry { get { return LastPressedParryTime > 0; } }
+    public bool IsUpParry { get { return LastUpParryTime > 0; } }
+    public bool CanCounter { get { return CanCounterTime > 0; } }
     public bool IsHoldDownAttack => (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.JoystickButton2));
     public bool IsHoldDownHeavyAttack => (Input.GetKey(KeyCode.Mouse2) || Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.JoystickButton3));
     public bool IsThreeCombosing { get; private set; }
@@ -104,6 +104,7 @@ public class MiaController : MonoBehaviour
     public bool IsShockWaving { get; private set; }
     public bool IsSkilling { get; private set; }
     public bool IsHurting { get { return LastHurtTime >= 0; } }
+    public bool IsDefending { get { return IsParrying && CanCounterTime < 0; } }
     public float DashCD { get; private set; }
     public float ThreeCombosCD { get; private set; }
     public float CircleHitCD { get; private set; }
@@ -117,6 +118,9 @@ public class MiaController : MonoBehaviour
     public float LastOnWallRightTime { get; private set; }
     public float LastOnWallLeftTime { get; private set; }
     public float LastHurtTime;
+    public float LastPressedParryTime;
+    public float LastUpParryTime;
+    public float CanCounterTime;
 
     //Jump
     private bool _isJumpCut;
@@ -142,10 +146,8 @@ public class MiaController : MonoBehaviour
     public float LastPressedDodgeTime { get; private set; }
     public float LastPressedAttackTime { get; private set; }
     public float LastPressedHeavyAttackTime { get; private set; }
-    public float LastPressedParryTime { get; private set; }
     public float NextDashTime { get; private set; }
     public float NextDodgeTime { get; private set; }
-    public float NextParryTime { get; private set; }
     public float LastPressedThreeCombosTime { get; private set; }
     public float LastPressedCircleHitTime { get; private set; }
     public float LastPressedShockWaveTime { get; private set; }
@@ -221,8 +223,8 @@ public class MiaController : MonoBehaviour
         CurrentHP = MaxHP;
         DashCD = 2f;
         ThreeCombosCD = 3f;
-        CircleHitCD = 8f;
-        ShockWaveCD = 5f;
+        CircleHitCD = 5f;
+        ShockWaveCD = 3f;
     }
 
     private void Update()
@@ -240,9 +242,10 @@ public class MiaController : MonoBehaviour
         LastPressedAttackTime -= Time.deltaTime;
         LastPressedHeavyAttackTime -= Time.deltaTime;
         LastPressedParryTime -= Time.deltaTime;
+        LastUpParryTime -= Time.deltaTime;
+        CanCounterTime -= Time.deltaTime;
         NextDodgeTime -= Time.deltaTime;
         NextDashTime -= Time.deltaTime;
-        NextParryTime -= Time.deltaTime;
         LastPressedThreeCombosTime -= Time.deltaTime;
         LastPressedCircleHitTime -= Time.deltaTime;
         LastPressedShockWaveTime -= Time.deltaTime;
@@ -286,10 +289,6 @@ public class MiaController : MonoBehaviour
             {
                 OnParryInput();
             }
-            if (Input.GetKeyUp(KeyCode.B))
-            {
-                CurrentHP = 0;
-            }
             //foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
             //{
             //    if (Input.GetKeyDown(kcode))
@@ -309,7 +308,16 @@ public class MiaController : MonoBehaviour
                 OnShockWaveInput();
             }
         }
+        if (Input.GetKeyUp(KeyCode.F) || Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp(KeyCode.JoystickButton0))
+        {
+            OnParryCancelInput();
+        }
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            CurrentHP = 0;
+        }
         #endregion
+
         #region COLLISION CHECKS
         if (!IsJumping)
         {
@@ -444,6 +452,10 @@ public class MiaController : MonoBehaviour
         {
             SetParrying(true);
         }
+        if (IsParrying && IsUpParry)
+        {
+            SetParrying(false);
+        }
         #endregion
 
         #region SKLL CHECKS
@@ -569,6 +581,11 @@ public class MiaController : MonoBehaviour
     {
         LastPressedParryTime = Data.attackInputBufferTime;
     }
+    private void OnParryCancelInput()
+    {
+        LastUpParryTime = Data.attackInputBufferTime;
+    }
+
     private void OnThreeCombosInput()
     {
         LastPressedThreeCombosTime = Data.attackInputBufferTime;
@@ -868,23 +885,24 @@ public class MiaController : MonoBehaviour
     #endregion
 
     #region HURT METHODS
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "EnemyAttack")
         {
             if (IsHurting || IsSuperArmoring || IsStunning || CurrentHP <= 0) { return; }
             EnemyController _enemy = collision.GetComponentInParent<EnemyController>();
+            if (!_enemy.CanDamage) { return; }
             StartCoroutine(AudioManager.Instance.PlayHit());
             float damage = _enemy.AttackDamage * Random.Range(0.90f, 1.2f);
             Hurt(damage);
             Repel(_enemy.transform, _enemy.IsHeavyAttack);
         }
     }
+
     public virtual void Hurt(float _damage)
     {
         if (IsHurting || IsSuperArmoring || IsStunning || CurrentHP <= 0) { return; }
-        CameraManager.Instance.Shake(3f, 0.1f);
+        CameraManager.Instance.Shake(0.3f, 0.1f);
         LastHurtTime = Data.HurtResetTime;
         SetCurrentHP(_damage);
     }
@@ -899,7 +917,7 @@ public class MiaController : MonoBehaviour
         }
         if (IsStun)
         {
-            vector *= 5; 
+            vector *= 5;
         }
         RB.velocity = Vector2.zero;
         RB.AddForce(vector, ForceMode2D.Impulse);
@@ -907,8 +925,8 @@ public class MiaController : MonoBehaviour
         {
             CheckDirectionToFace(vector.x < 0);
             StartCoroutine(Stun());
-            CameraManager.Instance.Shake(0.6f, 0.1f);
-            TimerManager.Instance.FrozenTime(0.2f);
+            TimerManager.Instance.DoFrozenTime(0.1f);
+            CameraManager.Instance.Shake(3f, 0.1f);
         }
     }
 
@@ -985,10 +1003,13 @@ public class MiaController : MonoBehaviour
     public void SetParrying(bool value)
     {
         IsParrying = value;
-        ParryPoint.SetActive(value);
-        if (!value)
+        if (value)
         {
-            NextParryTime = Data.parryResetTime;
+            CanCounterTime = 0.3f;
+        }
+        else
+        {
+            CanCounterTime = 0;
         }
     }
     public bool ParryHits()
@@ -1001,14 +1022,30 @@ public class MiaController : MonoBehaviour
         Physics2D.OverlapCollider(HitCollider, filter, collidersToDamage);
         foreach (var collider in collidersToDamage)
         {
-            EnemyController enemy = collider.GetComponent<EnemyController>();
+            if (collider.tag == "EnemyAttack")
+            {
+                if (!IsDefending)
+                {
+                    EnemyController enemy = collider.GetComponentInParent<EnemyController>();
+                    if (enemy != null && enemy.CanBeStunned)
+                    {
+                        enemy.Stunned();
+                        canCounter = true;
+                        EffectManager.Instance.DoHitFX(AttackPoint);
+                        TimerManager.Instance.SlowFrozenTime(0.3f);
+                        CameraManager.Instance.Shake(3f, 0.1f);
+                    }
+                }
+            }
+
+            /*EnemyController enemy = collider.GetComponent<EnemyController>();
             if (enemy != null && enemy.CanBeStunned)
             {
                 enemy.Stunned();
                 canCounter = true;
                 EffectManager.Instance.DoHitFX(AttackPoint);
                 TimerManager.Instance.FrozenTime(0.2f);
-            }
+            }*/
         }
         return canCounter;
     }
@@ -1067,7 +1104,7 @@ public class MiaController : MonoBehaviour
     }
     private bool CanParry()
     {
-        return !IsParrying && !IsDashing && !IsDodging && IsOnGround && NextParryTime < 0f;
+        return !IsParrying && !IsDashing && !IsDodging;
     }
     private bool CanThreeCombos()
     {
@@ -1112,9 +1149,9 @@ public class MiaController : MonoBehaviour
         }
     }
 
-    public void PlayThreeCombosFX()
+    public void PlayThreeCombosFX(int angle = 0)
     {
-        EffectManager.Instance.DoThreeCombosFX(AttackPoint, IsFacingRight);
+        EffectManager.Instance.DoThreeCombosFX(AttackPoint, IsFacingRight, angle);
     }
     public void PlayCircleHitFX()
     {

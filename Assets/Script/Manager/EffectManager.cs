@@ -50,9 +50,13 @@ namespace Assets.Script.Manager
             GameObject obj = Instantiate(SpawnFX, vector, Quaternion.identity);
             Destroy(obj, 1f);
         }
-        public void DoThreeCombosFX(GameObject point, bool isFacingRight)
+        public void DoThreeCombosFX(GameObject point, bool isFacingRight, int angle = 0)
         {
-            GameObject obj = Instantiate(ThreeCombosFX, point.transform.position, Quaternion.identity);
+            if (!isFacingRight)
+            {
+                angle *= -1;
+            }
+            GameObject obj = Instantiate(ThreeCombosFX, point.transform.position, Quaternion.Euler(0, 0, angle));
             if (!isFacingRight)
             {
                 obj.transform.localScale = new Vector3(-1, -1, 1);

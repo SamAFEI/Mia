@@ -25,7 +25,7 @@ public class CheckPoint : MonoBehaviour
             if (!Activated)
             {
                 SaveManager.Instance.SaveGame();
-                TimerManager.Instance.FrozenTime(0.5f);
+                TimerManager.Instance.SlowFrozenTime(0.5f);
                 AudioManager.Instance.StartCoroutine(AudioManager.Instance.PlayCheckPoint());
                 ActivateCheckPoint(true);
             }

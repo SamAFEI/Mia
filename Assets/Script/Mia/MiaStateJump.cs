@@ -19,7 +19,7 @@
         public override void OnUpdate()
         {
             base.OnUpdate();
-            if (Player.RB.velocity.y < 0 )
+            if (Player.RB.velocity.y < 0 && !Player.IsParrying)
             {
                 FSM.ChangeState(Player.FallState);
                 return;

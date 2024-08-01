@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Script.Mia
 {
-    public class MiaStateParry : MiaStatesGroundBase
+    public class MiaStateParry : MiaState
     {
         protected bool canCounter;
         public MiaStateParry(MiaController _player, MiaFSM _FSM, string _animName) : base(_player, _FSM, _animName)
@@ -14,8 +14,9 @@ namespace Assets.Script.Mia
         {
             base.OnEnter();
             Player.CanInputMove = false;
-            Player.RB.velocity = Vector3.zero;
+            Player.RB.velocity = Vector2.zero;
             canCounter = false;
+            Player.ParryPoint.SetActive(true);
         }
 
         public override void OnExit()
@@ -23,25 +24,31 @@ namespace Assets.Script.Mia
             base.OnExit();
             Player.CanInputMove = true;
             Player.SetParrying(false);
+            Player.ParryPoint.SetActive(false);
         }
 
         public override void OnUpdate()
         {
-            base.OnUpdate();
-            canCounter = canCounter || Player.ParryHits();
-            if (isAnimFinish)
+            base.OnUpdate(); 
+            if (Player.CanCounter)
             {
-                if (canCounter)
-                {
-                    Player.StartCoroutine(AudioManager.Instance.PlayShield());
-                    FSM.ChangeState(Player.CounterState);
-                    return;
-                }
-                else
-                {
-                    FSM.ChangeState(Player.IdleState);
-                    return;
-                }
+                canCounter = canCounter || Player.ParryHits();
+            }
+            else
+            {
+                canCounter = false;
+            }
+
+            if (canCounter)
+            {
+                Player.StartCoroutine(AudioManager.Instance.PlayShield());
+                FSM.ChangeState(Player.CounterState);
+                return;
+            }
+            if (!Player.IsParrying)
+            {
+                FSM.ChangeState(Player.IdleState);
+                return;
             }
         }
     }

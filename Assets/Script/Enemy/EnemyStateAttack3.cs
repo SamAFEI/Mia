@@ -21,6 +21,7 @@ namespace Assets.Script.Enemy
         {
             base.OnExit();
             Enemy.LastAttack3Time = Enemy.Data.Attack3RefillTime;
+            Enemy.CloseDamageTrigger();
         }
 
         public override void OnUpdate()

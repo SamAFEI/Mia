@@ -69,7 +69,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 2
   m_Points:
-  - {x: 2.4328003, y: -0.87272644}
+  - {x: 4.371048, y: -0.9812679}
   - {x: 4.333679, y: -0.22281265}
   - {x: 3.69104, y: 1.988492}
   - {x: 2.233307, y: 3.0924187}
@@ -162,8 +162,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.3694112, y: 0.37419665}
-  m_Size: {x: 7.0509195, y: 2.8312182}
+  m_Offset: {x: 2.7514138, y: 0.37419647}
+  m_Size: {x: 4.2869267, y: 2.831231}
   m_Direction: 1
 --- !u!1 &222006798
 GameObject:
@@ -554,6 +554,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4604608972055232695, guid: 2e2b07ea7d372e54e861997ea1a021b8,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4604608972055232695, guid: 2e2b07ea7d372e54e861997ea1a021b8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

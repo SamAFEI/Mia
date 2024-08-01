@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.ComponentModel;
+using UnityEngine;
 
 namespace Assets.Script.Enemy
 {
@@ -14,6 +15,10 @@ namespace Assets.Script.Enemy
             IsAnimatorPlay = true; //不要直接播放Die動畫
             base.OnEnter();
             IsAnimatorPlay = false;
+            if (Enemy.Data.IsSuperArmor)
+            {
+                TimerManager.Instance.SlowFrozenTime(1f);
+            }
         }
 
         public override void OnExit()

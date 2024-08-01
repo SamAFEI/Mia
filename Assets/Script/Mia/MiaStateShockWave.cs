@@ -14,11 +14,11 @@ public class MiaStateShockWave : MiaStatesAttackBase
         Player.PlayShockWaveFX();
         AudioManager.Instance.StartCoroutine(AudioManager.Instance.PlayShockWave());
         Player.ShockWaveCollider.enabled = true;
-        stateTime = 0.8f;
+        stateTime = 0.5f;
         Player.SetGravityScale(0); 
         Player.RB.velocity = Vector2.zero; 
         Player.AttackDamage = damage * 2;
-        Player.SetSuperArmor(true);
+        //Player.SetSuperArmor(true);
     }
     public override void OnExit()
     {

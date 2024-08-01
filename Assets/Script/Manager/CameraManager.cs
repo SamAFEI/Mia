@@ -6,6 +6,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance { get; private set; }
     private CinemachineVirtualCamera cvCamera;
     private CinemachineBasicMultiChannelPerlin cbmPerlin;
+    private Quaternion mainCameraQuaternion;
     private float shakeTimer = 0;
     private float shakeTimerTotal;
     private float startingIntensity;
@@ -49,6 +50,7 @@ public class CameraManager : MonoBehaviour
             {
                 cbmPerlin.m_AmplitudeGain = Mathf.Lerp(startingIntensity, 0f, shakeTimer / -shakeTimerTotal);
             }
+            Camera.main.transform.rotation = Quaternion.identity;
         }
     }
 }

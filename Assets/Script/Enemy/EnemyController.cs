@@ -1,11 +1,9 @@
 ﻿using Assets.Script.Bullet;
 using Assets.Script.Manager;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-using UnityEngine.UI;
 
 namespace Assets.Script.Enemy
 {
@@ -52,6 +50,7 @@ namespace Assets.Script.Enemy
 
         public float AttackDamage;
         public bool IsHeavyAttack;
+        public bool CanDamage;
         #endregion
 
         #region ENEMY STATE 
@@ -133,7 +132,7 @@ namespace Assets.Script.Enemy
             {
                 LastOnGroundTime = 0.1f;
             }
-            if ( _frontWallCheckPoint != null  
+            if (_frontWallCheckPoint != null
                        && Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer))
             {
                 LastOnFrontWallTime = 0.1f;
@@ -169,7 +168,7 @@ namespace Assets.Script.Enemy
                 while (count > 0)
                 {
                     obj = Instantiate(RedSoul, transform.position, Quaternion.identity);
-                    vector = new Vector2(Random.Range(-3f,3f), Random.Range(3f, 5f));
+                    vector = new Vector2(Random.Range(-3f, 3f), Random.Range(3f, 5f));
                     obj.GetComponent<Rigidbody2D>().AddForce(vector, ForceMode2D.Impulse);
                     count--;
                 }
@@ -264,16 +263,29 @@ namespace Assets.Script.Enemy
             FSM.InitState(IdleState);
         }
         public void AnimationTrigger() => FSM.CurrentState.AnimationFinishTrigger();
+        public void OpenDamageTrigger()
+        {
+            CanDamage = true;
+        }
+        public void CloseDamageTrigger()
+        {
+            CanDamage = false;
+        }
         #endregion
 
         #region HURT METHODS
-        public virtual void OnTriggerEnter2D(Collider2D collision)
+        public virtual void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.tag == "PlayerAttack")
             {
                 if (IsHurting || IsDie) { return; }
                 MiaController _player = collision.GetComponentInParent<MiaController>();
                 float damage = _player.AttackDamage * Random.Range(0.90f, 1.2f);
+                if (_player.CanCounter)
+                {
+                    damage *= 2;
+                    _player.SetCurrentHP(-damage);
+                }
                 Repel(collision.transform, false);
                 PlayBloodFX(collision.transform);
                 StartCoroutine(AudioManager.Instance.PlayHit());

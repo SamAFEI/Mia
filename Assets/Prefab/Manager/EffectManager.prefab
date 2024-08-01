@@ -48,9 +48,9 @@ MonoBehaviour:
   LandFX: {fileID: 586019235052591879, guid: 9ab0e5ca6fd58a0469706f67d26ee286, type: 3}
   SlideFX: {fileID: 8983022241984420343, guid: 18003784af524aa4cabaf0c5ade0e3f2, type: 3}
   SpawnFX: {fileID: 2650370954610454042, guid: c9277f237ff23044c8dfaed47db89363, type: 3}
-  ThreeCombosFX: {fileID: 2862954116510085213, guid: f85df22f30604f94ea936a6bd0bed736,
+  ThreeCombosFX: {fileID: 1663618605995574360, guid: f85df22f30604f94ea936a6bd0bed736,
     type: 3}
-  CircleHitFX: {fileID: 1835551845671874996, guid: 79955789f5130f54887bb0f1578997b6,
+  CircleHitFX: {fileID: 6732159965556473812, guid: 9686ff4f6c2095c48a2a38fe1e9d0427,
     type: 3}
   ShockWaveFX: {fileID: 2523829509647639958, guid: 6ec70b8a671818845806ec5abc0ac452,
     type: 3}

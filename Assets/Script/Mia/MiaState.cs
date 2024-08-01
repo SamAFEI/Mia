@@ -42,6 +42,11 @@ namespace Assets.Script.Mia
                 FSM.ChangeState(Player.DashState);
                 return;
             }
+            if (Player.IsParrying && FSM.CurrentState.GetType() != Player.ParryState.GetType() && FSM.CurrentState.GetType() != Player.CounterState.GetType())
+            {
+                FSM.ChangeState(Player.ParryState);
+                return;
+            }
             if (Player.IsDodging)
             {
                 FSM.ChangeState(Player.DodgeState);

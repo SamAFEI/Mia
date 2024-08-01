@@ -37,11 +37,6 @@ namespace Assets.Script.Mia
                 FSM.ChangeState(Player.AttackState);
                 return;
             }
-            if (Player.IsParrying && FSM.CurrentState.GetType() != Player.ParryState.GetType())
-            {
-                FSM.ChangeState(Player.ParryState);
-                return;
-            }
             if (Player.IsJumping)
             {
                 FSM.ChangeState(Player.JumpState);

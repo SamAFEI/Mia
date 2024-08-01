@@ -4,6 +4,7 @@ namespace Assets.Script.Mia
 {
     public class MiaStateDie : MiaState
     {
+        bool IsSwitch;
         public MiaStateDie(MiaController _player, MiaFSM _FSM, string _animName) : base(_player, _FSM, _animName)
         {
         }
@@ -12,7 +13,8 @@ namespace Assets.Script.Mia
         {
             base.OnEnter();
             Player.RB.velocity = Vector2.zero;
-            GameObject.Find("GUICanvas").GetComponent<UICanvas>().SwitchOnDiedScreen();
+            TimerManager.Instance.SlowFrozenTime(0.5f);
+            stateTime = 1f;
         }
 
         public override void OnExit()
@@ -23,6 +25,13 @@ namespace Assets.Script.Mia
         public override void OnUpdate()
         {
             //base.OnUpdate();
+            stateTime -= Time.deltaTime;
+            if (!IsSwitch &&stateTime < 0)
+            {
+                IsSwitch = true;
+                AudioManager.Instance.StopBGM();
+                GameObject.Find("GUICanvas").GetComponent<UICanvas>().SwitchOnDiedScreen();
+            }
             if (!GameManager.Instance.IsDie)
             {
                 FSM.ChangeState(Player.IdleState);

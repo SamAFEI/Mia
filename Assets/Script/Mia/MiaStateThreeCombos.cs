@@ -14,7 +14,7 @@ public class MiaStateThreeCombos : MiaStatesAttackBase
         Player.WeaponTrails.SetActive(false); 
         AudioManager.Instance.StartCoroutine(AudioManager.Instance.PlayAttack(true));
         stateTime = 1.2f;
-        Player.AttackDamage = damage * 2;
+        Player.AttackDamage = damage * 2f;
     }
     public override void OnExit()
     {
