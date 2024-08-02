@@ -36,7 +36,6 @@ namespace Assets.Script.Enemy
 
         #region STATE PARAMETERS
         public bool IsFacingRight { get; protected set; }
-        public bool IsAttacking { get; protected set; }
         public bool IsBattling { get; protected set; }
         public bool CanBeStunned { get; protected set; }
         public int CurrentHP { get; protected set; }
@@ -51,6 +50,7 @@ namespace Assets.Script.Enemy
         public float AttackDamage;
         public bool IsHeavyAttack;
         public bool CanDamage;
+        public bool IsAttacking;
         #endregion
 
         #region ENEMY STATE 
@@ -94,6 +94,11 @@ namespace Assets.Script.Enemy
         protected float notChaseDuringTime;
         public float LastHurtTime;
         #endregion
+
+        public bool IsMode1;
+        public bool IsMode2;
+        public float IdleTime;
+
 
         protected virtual void Awake()
         {
@@ -148,7 +153,7 @@ namespace Assets.Script.Enemy
         protected virtual void FixedUpdate()
         {
             FSM.CurrentState.OnFixedUpdate();
-            if (!IsHurting && !IsDie && RB.velocity.x != 0)
+            if (!IsHurting && !IsDie && !IsAttacking && RB.velocity.x != 0)
             {
                 CheckIsFacingRight(RB.velocity.x > 0);
             }
@@ -162,7 +167,7 @@ namespace Assets.Script.Enemy
             if (!this.gameObject.scene.isLoaded) return; //Load 會有一堆錯誤 用此判斷排除
             GameObject obj;
             Vector2 vector;
-            if (RedSoul != null && Data.RedSoulDropRate >= Random.Range(1, 100))
+            /*if (RedSoul != null && Data.RedSoulDropRate >= Random.Range(1, 100))
             {
                 int count = Random.Range(Data.RedSoulMinDrop, Data.RedSoulMinDrop);
                 while (count > 0)
@@ -172,7 +177,7 @@ namespace Assets.Script.Enemy
                     obj.GetComponent<Rigidbody2D>().AddForce(vector, ForceMode2D.Impulse);
                     count--;
                 }
-            }
+            }*/
             if (GreedSoul != null && Data.GreenSoulDropRate >= Random.Range(1, 100))
             {
                 int count = Random.Range(Data.GreenSoulMinDrop, Data.GreenSoulMinDrop);
@@ -226,23 +231,13 @@ namespace Assets.Script.Enemy
         {
             RB.velocity = new Vector2(_xVeloctiy, _yVeloctiy);
         }
-        public void MoveToPlayer()
+        public void MoveToPlayer(float offsetY = 0)
         {
-            /*float veloctiyX = 0;
-            Vector2 player = PlayerManager.Instance.Player.transform.position;
-            if (player.x < transform.position.x)
-            {
-                veloctiyX = -1;
-            }
-            else if (player.x > transform.position.x)
-            {
-                veloctiyX = 1;
-            }
-            SetVelocity(veloctiyX * Data.runSpeed, RB.velocity.y);
-            */
+            Vector2 vector = new Vector2(GameManager.Instance.Player.transform.position.x,
+                                        GameManager.Instance.Player.transform.position.y + offsetY);
             CheckIsFacingRight(PlayerDistanceX() > 0);
             RB.position = Vector2.MoveTowards(RB.position
-                                            , GameManager.Instance.Player.transform.position
+                                            , vector
                                             , Data.runSpeed * Time.deltaTime);
         }
         public void SetIsBattling(bool _isbattling)
@@ -286,12 +281,11 @@ namespace Assets.Script.Enemy
                     damage *= 2;
                     _player.SetCurrentHP(-damage);
                 }
-                Repel(collision.transform, false);
                 PlayBloodFX(collision.transform);
                 StartCoroutine(AudioManager.Instance.PlayHit());
                 Vector2 vector = new Vector2(transform.position.x, collision.transform.position.y);
                 EffectManager.Instance.DoHitFX(vector);
-                Hurt(damage);
+                Hurt(damage, _player.IsHeavyAttack);
             }
         }
 
@@ -299,15 +293,24 @@ namespace Assets.Script.Enemy
         {
             if (IsHurting || IsDie) { return; }
             TimerManager.Instance.DoFrozenTime(0.1f);
-            CameraManager.Instance.Shake(1f, 0.1f);
-            LastHurtTime = Data.HurtResetTime;
-            if (_isHeaveyAttack) { LastHurtTime += 0.3f; }
+            if (_isHeaveyAttack)
+            {
+                CameraManager.Instance.Shake(3f, 0.2f);
+            }
+            else
+            {
+                CameraManager.Instance.Shake(1f, 0.1f);
+            }
             StartCoroutine(HurtFlashFX());
             CurrentHP = (int)Mathf.Clamp(CurrentHP - _damage, 0, MaxHP);
             uiEnemyStatus.DoLerpHealth(_damage);
-            if (IsDie)
+            Repel(GameManager.Instance.Player.transform, _isHeaveyAttack);
+            LastHurtTime = Data.HurtResetTime;
+            //if (_isHeaveyAttack) { LastHurtTime += 0.3f; }
+            if (Data.IsSuperArmor && IsDie)
             {
                 FSM.ChangeState(DieState);
+                return;
             }
         }
 
@@ -332,6 +335,7 @@ namespace Assets.Script.Enemy
         #endregion
 
         #region Attack METHODS
+        //遠程攻擊
         public virtual void RangedAttack()
         {
             if (Bullet == null) return;

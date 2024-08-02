@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fungus;
+using UnityEngine;
 
 namespace Assets.Script.Bullet
 {
@@ -36,11 +37,16 @@ namespace Assets.Script.Bullet
             {
                 RB.velocity = Vector3.zero;
                 animator.Play("Attack1");
-                MiaController enemy = collision.GetComponent<MiaController>();
-                //enemy.StartCoroutine(enemy.Hurt(Damage, this.transform));
+                MiaController player = collision.GetComponent<MiaController>();
+                player.Hurt(Damage);
                 Destroy(this.gameObject, 0.4f);
-            }else if (collision.tag == "Ground" || collision.tag == "Weapon")
+            }
+            else if (collision.tag == "Ground" || collision.tag == "PlayerAttack")
             {
+                if (collision.tag == "PlayerAttack")
+                {
+                    StartCoroutine(AudioManager.Instance.PlayHit());
+                }
                 RB.velocity = Vector3.zero;
                 animator.Play("Attack1");
                 Destroy(this.gameObject, 0.4f);

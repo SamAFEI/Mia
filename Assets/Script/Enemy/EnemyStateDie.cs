@@ -25,17 +25,24 @@ namespace Assets.Script.Enemy
         {
             base.OnExit();
         }
+
+        public override void OnUpdate()
+        {
+            //base.OnUpdate();
+        }
+
         public override void OnLateUpdate()
         {
             base.OnLateUpdate();
             AnimatorPlay();
         }
+
         public override void AnimatorPlay()
         {
             if (Enemy.IsOnGround && !IsAnimatorPlay)
             {
                 base.AnimatorPlay();
-                IsAnimatorPlay = true;
+                IsAnimatorPlay = true; 
                 Enemy.RB.velocity = Vector2.zero;
                 Object.Destroy(Enemy.gameObject, 1f);
             }

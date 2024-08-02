@@ -16,16 +16,22 @@ MonoBehaviour:
   DefaultIsFacingRight: 1
   IsSuperArmor: 0
   IdleTime: 0
-  runSpeed: 3
+  runSpeed: 6
   ChaseDistance: 1.5
-  Attack1Damage: 20
+  Attack1Damage: 60
   Attack1RefillTime: 2
-  Attack3Damage: 10
+  IsHeaveAttack1: 0
+  Attack2Damage: 30
+  Attack2RefillTime: 5
+  Attack2Distance: 0
+  IsHeaveAttack2: 0
+  Attack3Damage: 40
   Attack3RefillTime: 20
   Attack3BulletSpeed: 10
   Attack3Rate: 10
   RangedDistance: 10
-  HurtResetTime: 0.5
+  IsHeaveAttack3: 0
+  HurtResetTime: 0.3
   StunResetTime: 3
   RedSoulDropRate: 50
   RedSoulMaxDrop: 5

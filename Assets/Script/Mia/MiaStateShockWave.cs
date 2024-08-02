@@ -18,6 +18,7 @@ public class MiaStateShockWave : MiaStatesAttackBase
         Player.SetGravityScale(0); 
         Player.RB.velocity = Vector2.zero; 
         Player.AttackDamage = damage * 2;
+        Player.IsHeavyAttack = true;
         //Player.SetSuperArmor(true);
     }
     public override void OnExit()

@@ -1,6 +1,4 @@
 using Assets.Script.Mia;
-using System;
-using UnityEngine;
 
 public class MiaStateThreeCombos : MiaStatesAttackBase
 {
@@ -11,7 +9,7 @@ public class MiaStateThreeCombos : MiaStatesAttackBase
     public override void OnEnter()
     {
         base.OnEnter();
-        Player.WeaponTrails.SetActive(false); 
+        Player.WeaponTrails.SetActive(false);
         AudioManager.Instance.StartCoroutine(AudioManager.Instance.PlayAttack(true));
         stateTime = 1.2f;
         Player.AttackDamage = damage * 2f;

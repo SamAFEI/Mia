@@ -1,4 +1,6 @@
-﻿namespace Assets.Script.Enemy
+﻿using UnityEngine;
+
+namespace Assets.Script.Enemy
 {
     public class EnemyStateHurt : EnemyState
     {
@@ -20,8 +22,14 @@
         public override void OnUpdate()
         {
             base.OnUpdate();
+            
             if (!Enemy.IsHurting)
             {
+                if (Enemy.IsDie)
+                {
+                    FSM.ChangeState(Enemy.DieState);
+                    return;
+                }
                 FSM.ChangeState(Enemy.IdleState);
                 return;
             }

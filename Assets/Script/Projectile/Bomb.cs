@@ -9,6 +9,7 @@ namespace Assets.Script.Bullet
         public Transform AttackPoint { get; private set; }
         #endregion
         public float lifeTime = 1f;
+        public bool CanDamage;
 
         protected override void Awake()
         {
@@ -29,10 +30,9 @@ namespace Assets.Script.Bullet
 
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == "Player")
+            if (collision.tag == "PlayerAttack")
             {
-                MiaController enemy = collision.GetComponent<MiaController>();
-                //enemy.StartCoroutine(enemy.Hurt(Damage, this.transform));
+                lifeTime = 0f;
             }
         }
     }

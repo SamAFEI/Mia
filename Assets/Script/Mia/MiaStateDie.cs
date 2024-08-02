@@ -12,6 +12,7 @@ namespace Assets.Script.Mia
         public override void OnEnter()
         {
             base.OnEnter();
+            Player.CanInputMove = false;
             Player.RB.velocity = Vector2.zero;
             TimerManager.Instance.SlowFrozenTime(0.5f);
             stateTime = 1f;

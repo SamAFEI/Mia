@@ -1,4 +1,5 @@
-﻿using Assets.Script.Collectibles;
+﻿using Assets.Script.Bullet;
+using Assets.Script.Collectibles;
 using Assets.Script.Enemy;
 using Assets.Script.Manager;
 using Assets.Script.Mia;
@@ -885,6 +886,36 @@ public class MiaController : MonoBehaviour
     #endregion
 
     #region HURT METHODS
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "EnemyAttack")
+        {
+            if (IsHurting || IsSuperArmoring || IsStunning || CurrentHP <= 0) { return; }
+            EnemyController _enemy = collision.GetComponentInParent<EnemyController>();
+            if (!_enemy.CanDamage) { return; }
+            StartCoroutine(AudioManager.Instance.PlayHit());
+            float damage = _enemy.AttackDamage * Random.Range(0.90f, 1.2f);
+            if (IsDefending)
+            {
+                damage *= 0.5f;
+            }
+            Hurt(damage, _enemy.IsHeavyAttack);
+            Repel(_enemy.transform, _enemy.IsHeavyAttack);
+        }
+        else if (collision.tag == "Bomb")
+        {
+            if (IsHurting || IsSuperArmoring || IsStunning || CurrentHP <= 0) { return; }
+            Bomb _enemy = collision.GetComponentInParent<Bomb>();
+            if (!_enemy.AttackPoint.gameObject.activeSelf) { return; }
+            float damage = _enemy.Damage * Random.Range(0.90f, 1.2f);
+            if (IsDefending)
+            {
+                damage *= 0.5f;
+            }
+            Hurt(damage);
+            Repel(_enemy.transform, false);
+        }
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "EnemyAttack")
@@ -894,15 +925,35 @@ public class MiaController : MonoBehaviour
             if (!_enemy.CanDamage) { return; }
             StartCoroutine(AudioManager.Instance.PlayHit());
             float damage = _enemy.AttackDamage * Random.Range(0.90f, 1.2f);
-            Hurt(damage);
+            if (IsDefending)
+            {
+                damage *= 0.5f;
+            }
+            Hurt(damage, _enemy.IsHeavyAttack);
             Repel(_enemy.transform, _enemy.IsHeavyAttack);
+        }
+        else if (collision.tag == "Bomb")
+        {
+            if (IsHurting || IsSuperArmoring || IsStunning || CurrentHP <= 0) { return; }
+            Bomb _enemy = collision.GetComponentInParent<Bomb>();
+            if (!_enemy.AttackPoint.gameObject.activeSelf) { return; }
+            float damage = _enemy.Damage * Random.Range(0.90f, 1.2f);
+            if (IsDefending)
+            {
+                damage *= 0.5f;
+            }
+            Hurt(damage);
+            Repel(_enemy.transform, false);
         }
     }
 
-    public virtual void Hurt(float _damage)
+    public virtual void Hurt(float _damage, bool IsStun = false)
     {
         if (IsHurting || IsSuperArmoring || IsStunning || CurrentHP <= 0) { return; }
-        CameraManager.Instance.Shake(0.3f, 0.1f);
+        if (!IsStun)
+        {
+            CameraManager.Instance.Shake(0.5f, 0.1f);
+        }
         LastHurtTime = Data.HurtResetTime;
         SetCurrentHP(_damage);
     }
@@ -926,7 +977,7 @@ public class MiaController : MonoBehaviour
             CheckDirectionToFace(vector.x < 0);
             StartCoroutine(Stun());
             TimerManager.Instance.DoFrozenTime(0.1f);
-            CameraManager.Instance.Shake(3f, 0.1f);
+            CameraManager.Instance.Shake(3f, 0.2f);
         }
     }
 
@@ -1037,15 +1088,6 @@ public class MiaController : MonoBehaviour
                     }
                 }
             }
-
-            /*EnemyController enemy = collider.GetComponent<EnemyController>();
-            if (enemy != null && enemy.CanBeStunned)
-            {
-                enemy.Stunned();
-                canCounter = true;
-                EffectManager.Instance.DoHitFX(AttackPoint);
-                TimerManager.Instance.FrozenTime(0.2f);
-            }*/
         }
         return canCounter;
     }

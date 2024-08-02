@@ -63,16 +63,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Power: 1.2
+    - _Power: 2
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale: 1
-    - _Speed: 1.2
+    - _Speed: 2
     - _Strength: 10
     - _Time: 0.5
     - _power: 1.2
     m_Colors:
-    - _Color: {r: 8.0734215, g: 0, b: 16.062746, a: 1}
+    - _Color: {r: 5.4179344, g: 0.658938, b: 15.521649, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -18,6 +18,7 @@ namespace Assets.Script.Mia
             Player.SetAttackEffect(true);
             AudioManager.Instance.StartCoroutine(AudioManager.Instance.PlayAttack());
             Player.AttackDamage = damage;
+            Player.IsHeavyAttack = false;
             isStrong = false;
             if (Player.InputX != 0)
             { Player.CheckDirectionToFace(Player.InputX > 0); } 
@@ -39,7 +40,7 @@ namespace Assets.Script.Mia
         public override void OnUpdate()
         {
             base.OnUpdate();
-            if (isAnimFinish)
+            if (isAnimFinish && !Player.IsSkilling)
             {
                 if (Player.IsOnGround)
                 {

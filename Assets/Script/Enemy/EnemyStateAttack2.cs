@@ -14,7 +14,8 @@ namespace Assets.Script.Enemy
             Enemy.RB.velocity = Vector3.zero;
             Enemy.CheckIsFacingRight(Enemy.PlayerDistanceX() > 0);
             Enemy.AttackDamage = Enemy.Data.Attack2Damage;
-            Enemy.IsHeavyAttack = true;
+            Enemy.IsHeavyAttack = Enemy.Data.IsHeaveAttack2;
+            Enemy.IsAttacking = true;
         }
 
         public override void OnExit()
@@ -22,6 +23,7 @@ namespace Assets.Script.Enemy
             base.OnExit();
             Enemy.LastAttack2Time = Enemy.Data.Attack2RefillTime;
             Enemy.CloseDamageTrigger();
+            Enemy.IsAttacking = false;
         }
 
         public override void OnUpdate()

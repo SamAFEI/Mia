@@ -13,7 +13,8 @@ namespace Assets.Script.Mia
         {
             base.OnEnter();
             Player.CanInputMove = false;
-            stateTime = 0.3f;
+            stateTime = 0.3f; 
+            AudioManager.Instance.StopAttack();
             AudioManager.Instance.StartCoroutine(AudioManager.Instance.PlaySigh());
         }
 

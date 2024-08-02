@@ -1,5 +1,4 @@
 ﻿using Assets.Script.Bullet;
-using Assets.Script.Manager;
 using UnityEngine;
 
 namespace Assets.Script.Enemy

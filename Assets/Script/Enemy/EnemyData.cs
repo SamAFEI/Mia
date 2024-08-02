@@ -21,12 +21,14 @@ public class EnemyData : ScriptableObject
     [Header("Attack1")]
     public int Attack1Damage = 10;
     public float Attack1RefillTime = 1;
+    public bool IsHeaveAttack1 = false;
 
     [Space(5)]
     [Header("Attack2")]
     public int Attack2Damage = 30;
     public float Attack2RefillTime = 5;
     public float Attack2Distance;
+    public bool IsHeaveAttack2 = false;
 
     [Space(5)]
     [Header("Attack3")]
@@ -35,6 +37,7 @@ public class EnemyData : ScriptableObject
     public float Attack3BulletSpeed;
     public float Attack3Rate = 0.05f;
     public float RangedDistance = 10f;
+    public bool IsHeaveAttack3 = false;
 
     [Space(5)]
     [Header("Hurt")]

@@ -395,6 +395,7 @@ MonoBehaviour:
   BodySize: 0
   AttackDamage: 0
   IsHeavyAttack: 0
+  CanDamage: 0
   _groundCheckPoint: {fileID: 222006799}
   _frontGroundCheckPoint: {fileID: 0}
   _groundCheckSize: {x: 0.49, y: 0.03}
@@ -412,6 +413,9 @@ MonoBehaviour:
   LastAttack2Time: 0
   LastAttack3Time: 0
   LastHurtTime: 0
+  IsMode1: 0
+  IsMode2: 0
+  IdleTime: 0
 --- !u!1001 &196254486
 PrefabInstance:
   m_ObjectHideFlags: 0
