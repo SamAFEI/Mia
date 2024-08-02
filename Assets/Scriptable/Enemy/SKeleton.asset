@@ -36,6 +36,6 @@ MonoBehaviour:
   RedSoulDropRate: 80
   RedSoulMaxDrop: 8
   RedSoulMinDrop: 3
-  GreenSoulDropRate: 0
-  GreenSoulMaxDrop: 0
-  GreenSoulMinDrop: 0
+  GreenSoulDropRate: 60
+  GreenSoulMaxDrop: 5
+  GreenSoulMinDrop: 3

@@ -7,10 +7,15 @@ public class UICanvas : MonoBehaviour
 {
     public Image DarkScreen;
     public TextMeshProUGUI YouDied;
+    public Image EndImage;
+
+    public bool IsEnd;
+    public float EndTime = 3f;
 
     private void Awake()
     {
         InitUIDied();
+        EndImage.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -19,7 +24,28 @@ public class UICanvas : MonoBehaviour
         {
             GameManager.Instance.RestarScene();
         }
+        if (IsEnd)
+        {
+            EndTime -= Time.deltaTime;
+            if (EndTime < 0)
+            {
+                if (Input.anyKeyDown)
+                {
+                    GameManager.Instance.RestarScene();
+                }
+            }
+        }
     }
+
+    private void LateUpdate()
+    {
+        if (IsEnd)
+        {
+            EndImage.gameObject.SetActive(true);
+            EndImage.color = new Color(1, 1, 1, EndImage.color.a + Time.deltaTime);
+        }
+    }
+
     public void SwitchOnDiedScreen()
     {
         StartCoroutine(DoDarkScreen());
@@ -34,7 +60,7 @@ public class UICanvas : MonoBehaviour
         while (DarkScreen.color.a < 1)
         {
             fadecount++;
-            alpha = Mathf.Lerp(0, 1f,(fadecount / 5f));
+            alpha = Mathf.Lerp(0, 1f, (fadecount / 5f));
             DarkScreen.color = SetColorAlpha(DarkScreen.color, alpha);
             yield return new WaitForSeconds(0.1f);
         }
@@ -54,7 +80,7 @@ public class UICanvas : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
-    private IEnumerator DoFadeIn(Color color,int fadecount, float delay = 0f,float alpha = 0)
+    private IEnumerator DoFadeIn(Color color, int fadecount, float delay = 0f, float alpha = 0)
     {
         yield return new WaitForSeconds(delay);
         DarkScreen.gameObject.SetActive(true);
@@ -73,9 +99,9 @@ public class UICanvas : MonoBehaviour
         DarkScreen.gameObject.SetActive(false);
         YouDied.gameObject.SetActive(false);
     }
-    public Color SetColorAlpha(Color color,float alpha)
+    public Color SetColorAlpha(Color color, float alpha)
     {
-        Color newColor = new Color(color.r,color.g,color.b,alpha);
+        Color newColor = new Color(color.r, color.g, color.b, alpha);
         return newColor;
     }
 }

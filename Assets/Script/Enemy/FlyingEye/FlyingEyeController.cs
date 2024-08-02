@@ -43,7 +43,7 @@ namespace Assets.Script.Enemy
                 if (PlayerDistance() > Data.ChaseDistance)
                 {
                     float offsetY = Random.Range(0.0f,4.0f);
-                    MoveToPlayer(offsetY);
+                    MoveToPlayer();
                     return;
                 }
             }

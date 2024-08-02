@@ -4701,7 +4701,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector3 Vector3Update(Vector3 currentValue, Vector3 targetValue, float speed){
 		Vector3 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * Time.unscaledDeltaTime;
 		return (currentValue);
 	}
 	
@@ -4722,7 +4722,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static Vector2 Vector2Update(Vector2 currentValue, Vector2 targetValue, float speed){
 		Vector2 diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * Time.unscaledDeltaTime;
 		return (currentValue);
 	}
 	
@@ -4743,7 +4743,7 @@ public class iTween : MonoBehaviour{
 	/// </param>
 	public static float FloatUpdate(float currentValue, float targetValue, float speed){
 		float diff = targetValue - currentValue;
-		currentValue += (diff * speed) * Time.deltaTime;
+		currentValue += (diff * speed) * Time.unscaledDeltaTime;
 		return (currentValue);
 	}
 	
@@ -6929,7 +6929,7 @@ public class iTween : MonoBehaviour{
 	        }
 	        else
 	        {
-	            runningTime += Time.deltaTime;
+	            runningTime += Time.unscaledDeltaTime;
 	        }
 	
 			if(reverse){

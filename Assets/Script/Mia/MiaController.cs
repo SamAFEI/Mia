@@ -230,7 +230,11 @@ public class MiaController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.IsPaused) return;
+        if (GameManager.Instance.IsPaused)
+        {
+            SetGravityScale(0);
+            return;
+        }
         #region TIMERS
         LastOnGroundTime -= Time.deltaTime;
         LastOnWallTime -= Time.deltaTime;
@@ -270,7 +274,7 @@ public class MiaController : MonoBehaviour
             {
                 OnJumpUpInput();
             }
-            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.JoystickButton7))
+            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton7))
             {
                 OnDashInput();
             }
@@ -304,7 +308,7 @@ public class MiaController : MonoBehaviour
             {
                 OnCircleHitInput();
             }
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 OnShockWaveInput();
             }

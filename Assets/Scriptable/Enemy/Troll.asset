@@ -21,7 +21,7 @@ MonoBehaviour:
   Attack1Damage: 80
   Attack1RefillTime: 2
   IsHeaveAttack1: 0
-  Attack2Damage: 200
+  Attack2Damage: 150
   Attack2RefillTime: 6
   Attack2Distance: 3
   IsHeaveAttack2: 1

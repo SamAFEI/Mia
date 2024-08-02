@@ -65,7 +65,7 @@ MonoBehaviour:
   heavyAttackDamage: 50
   circleAttackDamage: 10
   rollInputBufferTime: 0.2
-  maxHP: 1000
+  maxHP: 1500
   SuperArmorTime: 1
   HurtResetTime: 0.2
   StunResetTime: 1

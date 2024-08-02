@@ -17,7 +17,7 @@ MonoBehaviour:
   IsSuperArmor: 0
   IdleTime: 0.3
   runSpeed: 4
-  ChaseDistance: 6
+  ChaseDistance: 4
   Attack1Damage: 30
   Attack1RefillTime: 10
   IsHeaveAttack1: 0
@@ -29,13 +29,13 @@ MonoBehaviour:
   Attack3RefillTime: 1
   Attack3BulletSpeed: 6
   Attack3Rate: 100
-  RangedDistance: 10
+  RangedDistance: 4
   IsHeaveAttack3: 0
   HurtResetTime: 0.3
   StunResetTime: 3
   RedSoulDropRate: 30
   RedSoulMaxDrop: 3
   RedSoulMinDrop: 1
-  GreenSoulDropRate: 10
-  GreenSoulMaxDrop: 1
+  GreenSoulDropRate: 60
+  GreenSoulMaxDrop: 3
   GreenSoulMinDrop: 1

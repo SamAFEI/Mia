@@ -23,6 +23,7 @@ public class TimerManager : MonoBehaviour
     {
         if (frozdenDeltaTime > 0)
         {
+            isFrozening = true;
             frozdenDeltaTime -= Time.deltaTime;
             Time.timeScale = Mathf.Lerp(0.1f, 1f, 1 - (frozdenDeltaTime / frozenTime));
             if (frozdenDeltaTime <= 0) { isFrozening = false; }
