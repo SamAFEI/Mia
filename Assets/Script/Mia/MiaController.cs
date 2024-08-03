@@ -235,6 +235,7 @@ public class MiaController : MonoBehaviour
             SetGravityScale(0);
             return;
         }
+
         #region TIMERS
         LastOnGroundTime -= Time.deltaTime;
         LastOnWallTime -= Time.deltaTime;
@@ -980,7 +981,7 @@ public class MiaController : MonoBehaviour
         {
             CheckDirectionToFace(vector.x < 0);
             StartCoroutine(Stun());
-            TimerManager.Instance.DoFrozenTime(0.1f);
+            TimerManager.Instance.DoFrozenTime(0.08f);
             CameraManager.Instance.Shake(3f, 0.2f);
         }
     }
@@ -1084,11 +1085,12 @@ public class MiaController : MonoBehaviour
                     EnemyController enemy = collider.GetComponentInParent<EnemyController>();
                     if (enemy != null && enemy.CanBeStunned)
                     {
-                        enemy.Stunned();
-                        canCounter = true;
                         EffectManager.Instance.DoHitFX(AttackPoint);
                         TimerManager.Instance.SlowFrozenTime(0.3f);
                         CameraManager.Instance.Shake(3f, 0.1f);
+                        canCounter = true;
+                        enemy.StartCoroutine(enemy.Stunned());
+                        //enemy.Stunned();
                     }
                 }
             }

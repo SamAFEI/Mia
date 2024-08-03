@@ -23,6 +23,7 @@ namespace Assets.Script.Enemy
             base.OnExit();
             Enemy.LastAttack2Time = Enemy.Data.Attack2RefillTime;
             Enemy.CloseDamageTrigger();
+            Enemy.CloseMoveTrigger();
             Enemy.IsAttacking = false;
         }
 
@@ -31,6 +32,11 @@ namespace Assets.Script.Enemy
             base.OnUpdate();
             if (isAnimFinish)
             {
+                if (Enemy.IsMode3)
+                {
+                    FSM.ChangeState(Enemy.Attack1State);
+                    return;
+                }
                 FSM.ChangeState(Enemy.IdleState);
                 return;
             }

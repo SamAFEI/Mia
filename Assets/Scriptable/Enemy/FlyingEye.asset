@@ -26,7 +26,7 @@ MonoBehaviour:
   Attack2Distance: 0
   IsHeaveAttack2: 0
   Attack3Damage: 50
-  Attack3RefillTime: 1
+  Attack3RefillTime: 0.5
   Attack3BulletSpeed: 6
   Attack3Rate: 100
   RangedDistance: 4

@@ -29,7 +29,7 @@ public class UI_PlayerStatus : MonoBehaviour
 
     private IEnumerator LerpHealth(float _damage)
     {
-        float smooth = 10;
+        float smooth = 5;
         float startHP = hpSlider.value;
         while (hpSmooth < 1)
         {

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773407e064e41484a8e108bacbf7c6b1, type: 3}
   m_Name: SKeleton
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   DefaultIsFacingRight: 1
   IsSuperArmor: 0
-  IdleTime: 0
+  IdleTime: 1
   runSpeed: 3
-  ChaseDistance: 1.5
+  ChaseDistance: 2
   Attack1Damage: 100
   Attack1RefillTime: 5
   IsHeaveAttack1: 0
@@ -26,9 +26,9 @@ MonoBehaviour:
   Attack2Distance: 0
   IsHeaveAttack2: 0
   Attack3Damage: 80
-  Attack3RefillTime: 10
+  Attack3RefillTime: 3
   Attack3BulletSpeed: 5
-  Attack3Rate: 50
+  Attack3Rate: 80
   RangedDistance: 10
   IsHeaveAttack3: 0
   HurtResetTime: 0.3

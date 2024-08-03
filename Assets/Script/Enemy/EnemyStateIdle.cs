@@ -13,7 +13,8 @@ namespace Assets.Script.Enemy
         {
             base.OnEnter();
             stateTime = Enemy.Data.IdleTime;
-            Enemy.RB.velocity = Vector2.zero;
+            Enemy.RB.velocity = Vector2.zero; 
+            Enemy.RunSpeed = Enemy.Data.runSpeed;
         }
 
         public override void OnExit()
@@ -27,7 +28,7 @@ namespace Assets.Script.Enemy
             base.OnUpdate();
             if (stateTime < 0f && !Enemy.IsStunning)
             {
-                if (Enemy.IsMode1)
+                if (Enemy.IsMode1 || Enemy.IsMode2)
                 {
                     FSM.ChangeState(Enemy.ChaseState);
                     return;

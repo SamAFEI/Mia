@@ -19,7 +19,7 @@ public class TimerManager : MonoBehaviour
             //DontDestroyOnLoad(this.gameObject);
         }
     }
-    public void FixedUpdate()
+    private void Update()
     {
         if (frozdenDeltaTime > 0)
         {
@@ -29,6 +29,7 @@ public class TimerManager : MonoBehaviour
             if (frozdenDeltaTime <= 0) { isFrozening = false; }
         }
     }
+
     public void SlowFrozenTime(float _time)
     {
         StopAllCoroutines();
@@ -46,7 +47,6 @@ public class TimerManager : MonoBehaviour
     public IEnumerator FrozenTime(float _time = 0.1f)
     {
         isFrozening = true;
-        yield return new WaitForSeconds(0.01f);
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(_time);
         Time.timeScale = 1.0f;

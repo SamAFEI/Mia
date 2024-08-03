@@ -12,6 +12,7 @@ namespace Assets.Script.Enemy
         public override void OnEnter()
         {
             base.OnEnter();
+            Enemy.RunSpeed = Enemy.Data.runSpeed;
         }
 
         public override void OnExit()

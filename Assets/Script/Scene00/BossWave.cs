@@ -2,11 +2,11 @@ using Assets.Script.Enemy;
 using Assets.Script.Manager;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 
 public class BossWave : MonoBehaviour
 {
+    public UI_BOSSStatus bossStatus;
     public UICanvas uiCanvas;
     public List<GameObject> Enemys;
     public List<GameObject> SpawnPoints;
@@ -34,9 +34,13 @@ public class BossWave : MonoBehaviour
             CheckEnd();
             if (IsEnded)
             {
+                bossStatus.SetUIStateActive(false);
                 AudioManager.Instance.StopBGM();
                 if (NextWave != null)
-                { return; }
+                {
+                    NextWave.DoEvent();
+                    gameObject.SetActive(false);
+                }
                 else
                 {
                     uiCanvas.IsEnd = true;
@@ -55,27 +59,33 @@ public class BossWave : MonoBehaviour
         while (IsBossLive)
         {
             StartCoroutine(AudioManager.Instance.PlayStatue());
-            foreach (GameObject point in SpawnPoints)
+            foreach (GameObject point in LevelManager.Instance.SpawnPoints)
             {
-                foreach (GameObject enemy in Enemys)
-                {
-                    float offset = Random.Range(-1f, 1f);
-                    Vector2 vector = new Vector2(point.transform.position.x + offset, point.transform.position.y + offset);
-                    EffectManager.Instance.DoSpawnFX(vector);
-                    Instantiate(enemy, vector, Quaternion.identity);
-                    yield return new WaitForSeconds(Random.Range(0.1f, 0.6f));
-                }
+                if (!IsBossLive) { break; }
+                GameObject enemy = Enemys[Random.Range(0, Enemys.Count)];
+                float offset = Random.Range(-1.0f, 1.0f);
+                Vector2 vector = new Vector2(point.transform.position.x + offset, point.transform.position.y + offset);
+                EffectManager.Instance.DoSpawnFX(vector);
+                Instantiate(enemy, vector, Quaternion.identity);
+                yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
             }
             if (!IsBossActived)
             {
                 yield return new WaitForSeconds(10f);
                 if (BossObj != null)
                 {
-                    GameObject point = SpawnPoints[Random.Range(0, SpawnPoints.Count - 1)];
-                    float offset = Random.Range(-1f, 1f);
-                    Vector2 vector = new Vector2(point.transform.position.x + offset, point.transform.position.y + offset);
+                    //GameObject point = SpawnPoints[Random.Range(0, SpawnPoints.Count - 1)];
+                    //float offset = Random.Range(-1f, 1f);
+                    //Vector2 vector = new Vector2(point.transform.position.x + offset, point.transform.position.y + offset);
+                    Vector2 vector = new Vector2(GameManager.Instance.Player.transform.position.x,
+                                                    GameManager.Instance.Player.transform.position.y + 5);
                     EffectManager.Instance.DoSpawnFX(vector);
+                    StartCoroutine(AudioManager.Instance.PlayStatue());
                     Boss = Instantiate(BossObj, vector, Quaternion.identity).GetComponent<EnemyController>();
+                    Boss.name = BossObj.name;
+                    bossStatus.boss = Boss;
+                    bossStatus.SetUIStateActive(true);
+                    TimerManager.Instance.SlowFrozenTime(1f);
                 }
                 IsBossActived = true;
             }
@@ -94,6 +104,10 @@ public class BossWave : MonoBehaviour
         {
             if (collider.tag == "Enemy")
             {
+                if (!IsBossLive)
+                {
+                    collider.GetComponent<EnemyController>().Hurt(10000);
+                }
                 noEnemy = false;
                 break;
             }

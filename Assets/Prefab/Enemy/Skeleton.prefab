@@ -310,8 +310,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.086610794, y: -0.022927284}
-  m_Size: {x: 0.580904, y: 1.476572}
+  m_Offset: {x: -0.052761078, y: 0.06987667}
+  m_Size: {x: 0.90974426, y: 1.6234913}
   m_Direction: 0
 --- !u!114 &5733183964270111764
 MonoBehaviour:
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 53065b621cc0dfa4a9a388abfc54c5b2, type: 2}
   Bullet: {fileID: 2340266192991205389, guid: 5c399d9f468622740b134a97348675fa, type: 3}
-  BloodFX: {fileID: 1317937497646418828, guid: c850daa0011cb844cb713f58cda9499b, type: 3}
+  BloodFX: {fileID: 0}
   RedSoul: {fileID: 2012995844878688852, guid: bcb9ed991a8f46643ac2b3a26a2e404e, type: 3}
   GreedSoul: {fileID: 3286102419458529730, guid: 4cf8b388562fd47488ea7600f6073251,
     type: 3}
@@ -339,6 +339,8 @@ MonoBehaviour:
   AttackDamage: 0
   IsHeavyAttack: 0
   CanDamage: 0
+  IsAttacking: 0
+  StunDeltaTiem: 0
   _groundCheckPoint: {fileID: 7373494440853318835}
   _frontGroundCheckPoint: {fileID: 2087916154}
   _groundCheckSize: {x: 0.49, y: 0.03}
@@ -358,7 +360,11 @@ MonoBehaviour:
   LastHurtTime: 0
   IsMode1: 0
   IsMode2: 0
+  IsMode3: 0
+  IsMode4: 0
   IdleTime: 0
+  IsMoveToPlayer: 0
+  RunSpeed: 0
 --- !u!1001 &8504025817481927002
 PrefabInstance:
   m_ObjectHideFlags: 0

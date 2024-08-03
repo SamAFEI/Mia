@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773407e064e41484a8e108bacbf7c6b1, type: 3}
+  m_Name: HeavyArmor
+  m_EditorClassIdentifier: 
+  maxHP: 1000
+  DefaultIsFacingRight: 1
+  IsSuperArmor: 1
+  IdleTime: 1
+  runSpeed: 4
+  ChaseDistance: 4
+  Attack1Damage: 80
+  Attack1RefillTime: 1
+  IsHeaveAttack1: 0
+  Attack2Damage: 80
+  Attack2RefillTime: 3
+  Attack2Distance: 5
+  IsHeaveAttack2: 1
+  Attack3Damage: 100
+  Attack3RefillTime: 8
+  Attack3BulletSpeed: 0
+  Attack3Rate: 100
+  RangedDistance: 6
+  IsHeaveAttack3: 0
+  HurtResetTime: 0.2
+  StunResetTime: 3
+  RedSoulDropRate: 100
+  RedSoulMaxDrop: 10
+  RedSoulMinDrop: 10
+  GreenSoulDropRate: 100
+  GreenSoulMaxDrop: 15
+  GreenSoulMinDrop: 10

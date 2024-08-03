@@ -1,6 +1,4 @@
 using Live2D.Cubism.Core;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UI_Live2D : MonoBehaviour

@@ -15,24 +15,27 @@ MonoBehaviour:
   maxHP: 1000
   DefaultIsFacingRight: 1
   IsSuperArmor: 1
-  IdleTime: 0
+  IdleTime: 2
   runSpeed: 5
   ChaseDistance: 4
-  Attack1Damage: 40
+  Attack1Damage: 100
   Attack1RefillTime: 2
-  Attack2Damage: 100
-  Attack2RefillTime: 6
-  Attack2Distance: 3
-  Attack3Damage: 60
-  Attack3RefillTime: 4
+  IsHeaveAttack1: 1
+  Attack2Damage: 200
+  Attack2RefillTime: 2
+  Attack2Distance: 6
+  IsHeaveAttack2: 0
+  Attack3Damage: 80
+  Attack3RefillTime: 0.5
   Attack3BulletSpeed: 0
   Attack3Rate: 100
-  RangedDistance: 5
+  RangedDistance: 4.5
+  IsHeaveAttack3: 1
   HurtResetTime: 0.3
   StunResetTime: 3
   RedSoulDropRate: 100
   RedSoulMaxDrop: 10
   RedSoulMinDrop: 10
   GreenSoulDropRate: 100
-  GreenSoulMaxDrop: 10
+  GreenSoulMaxDrop: 15
   GreenSoulMinDrop: 10

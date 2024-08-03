@@ -67,5 +67,5 @@ MonoBehaviour:
   rollInputBufferTime: 0.2
   maxHP: 1500
   SuperArmorTime: 1
-  HurtResetTime: 0.2
+  HurtResetTime: 0.1
   StunResetTime: 1

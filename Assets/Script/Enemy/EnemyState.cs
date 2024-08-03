@@ -10,7 +10,7 @@ namespace Assets.Script.Enemy
         protected string animName;
         protected bool isAnimFinish;
 
-        public EnemyState(EnemyController _enemy,EnemyFSM _FSM, string _animName)
+        public EnemyState(EnemyController _enemy, EnemyFSM _FSM, string _animName)
         {
             Enemy = _enemy;
             FSM = _FSM;

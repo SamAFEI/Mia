@@ -12,27 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773407e064e41484a8e108bacbf7c6b1, type: 3}
   m_Name: GhostWarrio2
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 50
   DefaultIsFacingRight: 1
   IsSuperArmor: 0
-  IdleTime: 0.1
-  runSpeed: 3
-  ChaseDistance: 2
-  Attack1Damage: 50
+  IdleTime: 0.5
+  runSpeed: 4
+  ChaseDistance: 3
+  Attack1Damage: 80
   Attack1RefillTime: 1
-  Attack2Damage: 0
-  Attack2RefillTime: 0
-  Attack2Distance: 0
+  IsHeaveAttack1: 0
+  Attack2Damage: 100
+  Attack2RefillTime: 3
+  Attack2Distance: 10
+  IsHeaveAttack2: 0
   Attack3Damage: 0
   Attack3RefillTime: 0
   Attack3BulletSpeed: 0
   Attack3Rate: 0.05
   RangedDistance: 10
+  IsHeaveAttack3: 0
   HurtResetTime: 0.3
   StunResetTime: 3
   RedSoulDropRate: 50
   RedSoulMaxDrop: 4
   RedSoulMinDrop: 1
-  GreenSoulDropRate: 10
+  GreenSoulDropRate: 60
   GreenSoulMaxDrop: 3
-  GreenSoulMinDrop: 0
+  GreenSoulMinDrop: 1

@@ -8,8 +8,7 @@ namespace Assets.Script.Enemy.Skeleton
         protected override void SetFSMState()
         {
             base.SetFSMState();
-            ShieldState = new SkeletonStateShield(this, FSM, "Shield");
-
+            //ShieldState = new SkeletonStateShield(this, FSM, "Shield");
         }
         #region STATE METHODS
         public override void ChaseStateAction()
@@ -23,11 +22,6 @@ namespace Assets.Script.Enemy.Skeleton
             else if (CanAttack1())
             {
                 FSM.ChangeState(Attack1State);
-                return;
-            }
-            else if (LastAttack1Time > 0)
-            {   
-                FSM.ChangeState(ShieldState);
                 return;
             }
             else if (PlayerDistance() > Data.ChaseDistance)

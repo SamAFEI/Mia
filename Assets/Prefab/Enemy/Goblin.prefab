@@ -203,8 +203,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.013461858, y: -0.037020087}
-  m_Size: {x: 0.69470376, y: 0.9567268}
+  m_Offset: {x: -0.008838654, y: 0.048139095}
+  m_Size: {x: 0.9745102, y: 1.0864935}
   m_Direction: 0
 --- !u!114 &5033204280385933103
 MonoBehaviour:
@@ -232,6 +232,8 @@ MonoBehaviour:
   AttackDamage: 0
   IsHeavyAttack: 0
   CanDamage: 0
+  IsAttacking: 0
+  StunDeltaTiem: 0
   _groundCheckPoint: {fileID: 4499328058810872708}
   _frontGroundCheckPoint: {fileID: 620734184}
   _groundCheckSize: {x: 0.2, y: 0.03}
@@ -251,7 +253,11 @@ MonoBehaviour:
   LastHurtTime: 0
   IsMode1: 0
   IsMode2: 0
+  IsMode3: 0
+  IsMode4: 0
   IdleTime: 0
+  IsMoveToPlayer: 0
+  RunSpeed: 0
 --- !u!1 &4499328058468790607
 GameObject:
   m_ObjectHideFlags: 0

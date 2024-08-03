@@ -63,11 +63,26 @@ public class AudioManager : MonoBehaviour
         DeathSource = gameObject.AddComponent<AudioSource>();
         sighSource = gameObject.AddComponent<AudioSource>();
         footstepsSource = gameObject.AddComponent<AudioSource>();
+
+        float volume = 0.3f;
+        BGMSource.volume = volume;
+        HitSource.volume = volume;
+        AttackSource.volume = volume;
+        DashSource.volume = volume;
+        ShieldSource.volume = volume;
+        StatueSource.volume = volume;
+        DarkSource.volume = volume;
+        SpellSource.volume = volume;
+        ShockWaveSource.volume = volume;
+
+        CheckPointSource.volume = volume;
+        DeathSource.volume = volume;
+        sighSource.volume = volume;
+        footstepsSource.volume = volume;
     }
 
     private void Start()
     {
-        
         BGMSource.loop = true;
         BGMSource.volume = 0.1f;
         //PlayBGM();
@@ -81,19 +96,19 @@ public class AudioManager : MonoBehaviour
             if (isBoss)
             {
                 BGMSource.clip = BossList[Random.Range(0, BossList.Count - 1)];
-                BGMSource.volume = 0.5f;
+                BGMSource.volume = 0.1f;
             }
             else
             {
                 BGMSource.clip = BattleList[battleList];
-                BGMSource.volume = 0.5f;
+                BGMSource.volume = 0.1f;
             }
         }
         else
         {
             BGMSource.Stop();
             BGMSource.clip = MainClip;
-            BGMSource.volume = 0.2f;
+            BGMSource.volume = 0.1f;
         }
         BGMSource.Play();
     }
@@ -126,7 +141,7 @@ public class AudioManager : MonoBehaviour
     {
         if (footstepsClip == null) yield break;
         footstepsSource.clip = footstepsClip;
-        footstepsSource.volume = 0.3f;
+        footstepsSource.volume = 0.5f;
         yield return null;
         footstepsSource.Play();
     }

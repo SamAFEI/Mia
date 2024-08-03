@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773407e064e41484a8e108bacbf7c6b1, type: 3}
   m_Name: Troll
   m_EditorClassIdentifier: 
-  maxHP: 1000
+  maxHP: 1500
   DefaultIsFacingRight: 1
   IsSuperArmor: 1
   IdleTime: 1

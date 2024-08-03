@@ -19,6 +19,7 @@ namespace Assets.Script.Enemy
         public Transform AttackPoint { get; private set; }
         public Collider2D HitCollider { get; private set; }
         public SpriteRenderer Spr { get; private set; }
+        public UI_BOSSStatus ui_BossStatus { get; private set; }
 
         public GameObject Bullet;
         public GameObject BloodFX;
@@ -51,6 +52,7 @@ namespace Assets.Script.Enemy
         public bool IsHeavyAttack;
         public bool CanDamage;
         public bool IsAttacking;
+        public bool StunDeltaTiem;
         #endregion
 
         #region ENEMY STATE 
@@ -97,7 +99,11 @@ namespace Assets.Script.Enemy
 
         public bool IsMode1;
         public bool IsMode2;
+        public bool IsMode3;
+        public bool IsMode4;
         public float IdleTime;
+        public bool IsMoveToPlayer;
+        public float RunSpeed;
 
 
         protected virtual void Awake()
@@ -118,6 +124,8 @@ namespace Assets.Script.Enemy
         {
             SetIsBattling(true);
             uiEnemyStatus = GetComponentInChildren<UI_EnemyStatus>();
+            ui_BossStatus = GameObject.FindAnyObjectByType<UI_BOSSStatus>();
+            RunSpeed = Data.runSpeed;
         }
         protected virtual void Update()
         {
@@ -148,6 +156,11 @@ namespace Assets.Script.Enemy
             if (IsFoundPlayer())
             {
                 SetIsBattling(true);
+            }
+
+            if (IsMoveToPlayer && !IsStunning)
+            {
+                MoveToPlayer();
             }
         }
         protected virtual void FixedUpdate()
@@ -231,14 +244,12 @@ namespace Assets.Script.Enemy
         {
             RB.velocity = new Vector2(_xVeloctiy, _yVeloctiy);
         }
-        public void MoveToPlayer(float offsetY = 0)
+        public void MoveToPlayer()
         {
-            Vector2 vector = new Vector2(GameManager.Instance.Player.transform.position.x,
-                                        GameManager.Instance.Player.transform.position.y + offsetY);
             CheckIsFacingRight(PlayerDistanceX() > 0);
             RB.position = Vector2.MoveTowards(RB.position
-                                            , vector
-                                            , Data.runSpeed * Time.deltaTime);
+                                            , GameManager.Instance.Player.transform.position
+                                            , RunSpeed * Time.deltaTime);
         }
         public void SetIsBattling(bool _isbattling)
         {
@@ -260,11 +271,19 @@ namespace Assets.Script.Enemy
         public void AnimationTrigger() => FSM.CurrentState.AnimationFinishTrigger();
         public void OpenDamageTrigger()
         {
-            CanDamage = true;
+            CanDamage = true && !IsStunning;
         }
         public void CloseDamageTrigger()
         {
             CanDamage = false;
+        }
+        public void OpenMoveTrigger()
+        {
+            IsMoveToPlayer = true && !IsStunning;
+        }
+        public void CloseMoveTrigger()
+        {
+            IsMoveToPlayer = false;
         }
         #endregion
 
@@ -292,7 +311,7 @@ namespace Assets.Script.Enemy
         public virtual void Hurt(float _damage, bool _isHeaveyAttack = false)
         {
             if (IsHurting || IsDie) { return; }
-            TimerManager.Instance.DoFrozenTime(0.1f);
+            TimerManager.Instance.DoFrozenTime(0.08f);
             if (_isHeaveyAttack)
             {
                 CameraManager.Instance.Shake(3f, 0.2f);
@@ -303,7 +322,14 @@ namespace Assets.Script.Enemy
             }
             StartCoroutine(HurtFlashFX());
             CurrentHP = (int)Mathf.Clamp(CurrentHP - _damage, 0, MaxHP);
-            uiEnemyStatus.DoLerpHealth(_damage);
+            if (Data.IsSuperArmor)
+            {
+                ui_BossStatus.DoLerpHealth(_damage);
+            }
+            else
+            {
+                uiEnemyStatus.DoLerpHealth(_damage);
+            }
             Repel(GameManager.Instance.Player.transform, _isHeaveyAttack);
             LastHurtTime = Data.HurtResetTime;
             //if (_isHeaveyAttack) { LastHurtTime += 0.3f; }
@@ -385,11 +411,12 @@ namespace Assets.Script.Enemy
         {
             CanBeStunned = false;
         }
-        public virtual void Stunned()
+        public virtual IEnumerator Stunned()
         {
-            FSM.ChangeState(IdleState);
             StunResetTime = Data.StunResetTime;
             StartCoroutine(StunFlashFX());
+            yield return new WaitForSeconds(0.1f);
+            FSM.ChangeState(IdleState);
         }
         #endregion
 
@@ -424,10 +451,11 @@ namespace Assets.Script.Enemy
         {
             while (IsStunning)
             {
+                float _time = Mathf.Lerp(0.2f, 0.01f, 1 - (StunResetTime / Data.StunResetTime)); ;
                 Spr.material = stunFXMAT;
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForSeconds(_time);
                 Spr.material = originalMAT;
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForSeconds(_time);
                 if (IsDie) break;
             }
         }

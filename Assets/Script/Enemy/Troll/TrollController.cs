@@ -1,5 +1,4 @@
-﻿using Assets.Script.Manager;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Script.Enemy.Troll
 {
