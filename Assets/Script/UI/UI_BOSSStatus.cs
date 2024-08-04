@@ -52,6 +52,10 @@ public class UI_BOSSStatus : MonoBehaviour
             txBoss.text = boss.name;
             StartCoroutine(LerpBarScale());
         }
+        else
+        {
+            hpSlider.transform.localScale = new Vector3(0, 1, 1);
+        }
     }
 
     private IEnumerator LerpBarScale()
