@@ -209,7 +209,6 @@ public class MiaController : MonoBehaviour
         CircleHitState = new MiaStateCircleHit(this, FSM, "CircleHit");
         ShockWaveState = new MiaStateShockWave(this, FSM, "ShockWave");
 
-        FSM.InitState(IdleState);
         SetAttackEffect(false);
         SetParrying(false);
         CanInputMove = true;
@@ -220,16 +219,21 @@ public class MiaController : MonoBehaviour
         uiPlayerStatus = GameObject.FindObjectOfType<UI_PlayerStatus>();
         SetGravityScale(Data.gravityScale);
         IsFacingRight = true;
-        MaxHP = Data.maxHP;
-        CurrentHP = MaxHP;
         DashCD = 2f;
         ThreeCombosCD = 3f;
         CircleHitCD = 5f;
         ShockWaveCD = 3f;
+        MaxHP = Data.maxHP;
+        CurrentHP = MaxHP;
+        FSM.InitState(IdleState);
     }
 
     private void Update()
     {
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            CurrentHP = 0;
+        }
         if (GameManager.Instance.IsPaused)
         {
             SetGravityScale(0);
@@ -531,7 +535,7 @@ public class MiaController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.IsPaused) return;
+        if (GameManager.Instance.IsPaused || CurrentHP <= 0) return;
         FSM.CurrentState.OnFixedUpdate();
         GetCollectibles();
 

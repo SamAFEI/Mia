@@ -84,7 +84,6 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         BGMSource.loop = true;
-        BGMSource.volume = 0.1f;
         //PlayBGM();
     }
 
@@ -96,19 +95,16 @@ public class AudioManager : MonoBehaviour
             if (isBoss)
             {
                 BGMSource.clip = BossList[Random.Range(0, BossList.Count - 1)];
-                BGMSource.volume = 0.1f;
             }
             else
             {
                 BGMSource.clip = BattleList[battleList];
-                BGMSource.volume = 0.1f;
             }
         }
         else
         {
             BGMSource.Stop();
             BGMSource.clip = MainClip;
-            BGMSource.volume = 0.1f;
         }
         BGMSource.Play();
     }

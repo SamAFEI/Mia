@@ -14,6 +14,7 @@ namespace Assets.Script.Manager
         [SerializeField] private GameObject ShockWaveFX;
 
         public GameObject CircleHitFXobj;
+        public GameObject ShockWaveFXobj;
         private void Awake()
         {
             if (Instance == null)
@@ -79,10 +80,10 @@ namespace Assets.Script.Manager
         public void DoShockWaveFX(GameObject point, Transform _paranet)
         {
             if (ShockWaveFX == null) return;
-            GameObject obj = Instantiate(ShockWaveFX
+            ShockWaveFXobj = Instantiate(ShockWaveFX
                                     , point.transform.position
                                     , Quaternion.identity, _paranet);
-            Destroy(obj, 0.5f);
+            Destroy(ShockWaveFXobj, 0.5f);
         }
 
         public void DestroyCircleHitFXobj()
@@ -90,6 +91,13 @@ namespace Assets.Script.Manager
             if (CircleHitFXobj != null)
             {
                 Destroy(CircleHitFXobj);
+            }
+        }
+        public void DestroyShockWaveFXobj()
+        {
+            if (ShockWaveFXobj != null)
+            {
+                Destroy(ShockWaveFXobj);
             }
         }
     }

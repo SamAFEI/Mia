@@ -1,3 +1,4 @@
+using Assets.Script.Manager;
 using Assets.Script.Mia;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ public class MiaStateShockWave : MiaStatesAttackBase
     public override void OnExit()
     {
         base.OnExit();
+        EffectManager.Instance.DestroyShockWaveFXobj();
         Player.ShockWaveCollider.enabled = false;
         Player.ShockWaveFilled.fillAmount = 1;
         Player.SetShockWave(false);

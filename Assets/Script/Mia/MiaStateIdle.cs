@@ -12,6 +12,7 @@ namespace Assets.Script.Mia
         {
             base.OnEnter();
             Player.RB.velocity = Vector2.zero;
+            AudioManager.Instance.StopAttack();
         }
 
         public override void OnExit()

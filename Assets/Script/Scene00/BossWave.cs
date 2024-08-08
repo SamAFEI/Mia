@@ -1,5 +1,6 @@
 using Assets.Script.Enemy;
 using Assets.Script.Manager;
+using Fungus;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,12 @@ public class BossWave : MonoBehaviour
     public GameObject BossObj;
     public EnemyController Boss;
     public BossWave NextWave;
+    public Flowchart flowchart;
     public bool IsBossActived;
     public bool IsEnded;
     public bool IsBossLive;
     public int battlemuisc = 0;
+    public bool IsEndActive;
 
     private void Start()
     {
@@ -41,9 +44,10 @@ public class BossWave : MonoBehaviour
                     NextWave.DoEvent();
                     gameObject.SetActive(false);
                 }
-                else
+                else if (!IsEndActive)
                 {
-                    uiCanvas.IsEnd = true;
+                    IsEndActive = true;
+                    flowchart.ExecuteBlock("End");
                 }
             }
         }
@@ -51,7 +55,7 @@ public class BossWave : MonoBehaviour
     public virtual void DoEvent()
     {
         StartCoroutine(SpawnOneWave());
-        AudioManager.Instance.PlayBGM(true, battlemuisc, IsBossLive);
+        AudioManager.Instance.PlayBGM(true, battlemuisc);
     }
 
     protected virtual IEnumerator SpawnOneWave()

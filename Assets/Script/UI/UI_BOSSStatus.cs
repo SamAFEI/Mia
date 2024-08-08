@@ -37,7 +37,7 @@ public class UI_BOSSStatus : MonoBehaviour
             hpSlider.value = Mathf.Lerp(startHP, boss.CurrentHP, hpSmooth);
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
     }
 
     public void SetUIStateActive(bool _value)
@@ -47,14 +47,11 @@ public class UI_BOSSStatus : MonoBehaviour
 
         if (_value)
         {
+            hpSlider.transform.localScale = new Vector3(0, 1, 1);
             hpSlider.maxValue = boss.Data.maxHP;
             hpSlider.value = hpSlider.maxValue;
             txBoss.text = boss.name;
             StartCoroutine(LerpBarScale());
-        }
-        else
-        {
-            hpSlider.transform.localScale = new Vector3(0, 1, 1);
         }
     }
 
@@ -67,6 +64,11 @@ public class UI_BOSSStatus : MonoBehaviour
         {
             ScaleSmooth += Time.deltaTime * smooth;
             hpSlider.transform.localScale = new Vector3(Mathf.Lerp(hpSlider.transform.localScale.x, 1, ScaleSmooth), 1, 1);
+            if (hpSlider.transform.localScale.x > 0.9)
+            {
+                ScaleSmooth = 1;
+                hpSlider.transform.localScale = new Vector3(1, 1, 1);
+            }
             yield return null;
         }
         yield return new WaitForSeconds(1f);

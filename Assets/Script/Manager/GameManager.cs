@@ -6,8 +6,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public GameObject Player { get; private set; }
     public MiaController Mia { get; private set; }
-    public bool IsDie{ get { return Mia.CurrentHP <= 0; } }
+    public bool IsDie { get; private set; }
     public bool IsPaused;
+    public static string LoadSceneName;
 
     private void Awake()
     {
@@ -25,7 +26,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
-        Mia = Player.GetComponent<MiaController>();
+        if (Player != null)
+        { Mia = Player.GetComponent<MiaController>(); }
+    }
+
+    private void Update()
+    {
+        Instance.IsDie = Player != null ? Mia.CurrentHP <= 0 : false;
     }
 
     /// <summary>
@@ -70,5 +77,11 @@ public class GameManager : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+
+    public void LoadScene(string _sceneName)
+    {
+        LoadSceneName = _sceneName;
+        SceneManager.LoadScene("LoadingScene");
     }
 }

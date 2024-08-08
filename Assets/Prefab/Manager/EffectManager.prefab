@@ -55,3 +55,4 @@ MonoBehaviour:
   ShockWaveFX: {fileID: 2523829509647639958, guid: 6ec70b8a671818845806ec5abc0ac452,
     type: 3}
   CircleHitFXobj: {fileID: 0}
+  ShockWaveFXobj: {fileID: 0}

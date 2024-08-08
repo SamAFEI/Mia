@@ -31,7 +31,7 @@ public class UICanvas : MonoBehaviour
             {
                 if (Input.anyKeyDown)
                 {
-                    GameManager.Instance.RestarScene();
+                    GameManager.Instance.LoadScene("TitleScene");
                 }
             }
         }
@@ -45,11 +45,15 @@ public class UICanvas : MonoBehaviour
             EndImage.color = new Color(1, 1, 1, EndImage.color.a + Time.deltaTime);
         }
     }
+    public void SetEnd()
+    {
+        IsEnd = true;
+    }
 
     public void SwitchOnDiedScreen()
     {
         StartCoroutine(DoDarkScreen());
-        SaveManager.Instance.SaveGame();
+        //SaveManager.Instance.SaveGame();
     }
     private IEnumerator DoDarkScreen()
     {

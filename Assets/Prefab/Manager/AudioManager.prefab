@@ -55,9 +55,9 @@ MonoBehaviour:
   ShockWaveClip: {fileID: 8300000, guid: c6e09c383fe327c488b3538cd4230fbf, type: 3}
   MainClip: {fileID: 8300000, guid: 32af824b644a03f4db43886dd3a6550b, type: 3}
   BattleList:
-  - {fileID: 8300000, guid: 2da1a1b28026d9a40aa247830818d468, type: 3}
   - {fileID: 8300000, guid: dac29a70caa542048904b617db2b2416, type: 3}
   - {fileID: 8300000, guid: 1ee7412826316c74f942ae7f741f2416, type: 3}
+  - {fileID: 8300000, guid: fb2f0b935528ab74eaeecd5913cedaa7, type: 3}
   BossList:
   - {fileID: 8300000, guid: fb2f0b935528ab74eaeecd5913cedaa7, type: 3}
   CheckPointClip: {fileID: 8300000, guid: 112726f640a67e54991aa9e1ff56d816, type: 3}
